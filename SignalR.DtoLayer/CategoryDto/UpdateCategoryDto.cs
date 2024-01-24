@@ -9,6 +9,8 @@ namespace SignalR.DtoLayer.CategoryDto
     public class UpdateCategoryDto
     {
         public string CategoryName { get; set; }
+
+        public int CategoryID { get; set; }
         public bool Status { get; set; }
     }
 }

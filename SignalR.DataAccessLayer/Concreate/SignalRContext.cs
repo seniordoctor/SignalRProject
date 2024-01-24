@@ -12,7 +12,8 @@ namespace SignalR.DataAccessLayer.Concreate
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\doctor;initial Catalog=SignalRDb;integrated Security=true");
+            //optionsBuilder.UseSqlServer("Server=(localdb)\\doctor;initial Catalog=SignalRDb;integrated Security=true");
+            optionsBuilder.UseSqlServer("Server=127.0.0.1;Database=SignalRDb;Persist Security Info=False;User ID=sa;Password=M@f911o8u8xQwN50Pb3i8K");
         }
 
         public DbSet<About> Abouts { get; set; }
