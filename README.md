@@ -1,0 +1,1 @@
+- QR Code Order Management Project with SignalR library with layered architecture 
