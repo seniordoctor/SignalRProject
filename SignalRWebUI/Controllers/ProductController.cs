@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using SignalRWebUI.Dtos.CategoryDtos;
 using SignalRWebUI.Dtos.ProductDtos;
@@ -21,15 +22,26 @@ namespace SignalRWebUI.Controllers
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync(); // icerigi string formatinda oku, json'dan gelen icin
-																				  // json bir veriyi cozerken Deserialize, json'a veri gonderirken Serialize. Listelerken Deserialize, Ekleme ve guncelleme serialize 
+				// json bir veriyi cozerken Deserialize, json'a veri gonderirken Serialize. Listelerken Deserialize, Ekleme ve guncelleme serialize 
 				var values = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
 				return View(values);
 			}
 			return View();
 		}
 		[HttpGet]
-		public IActionResult CreateProduct()
+		public async Task<IActionResult> CreateProduct()
 		{
+			var client = _httpClientFactory.CreateClient();
+			var responseMessage = await client.GetAsync("https://localhost:44363/api/Category");
+			var jsonData = await responseMessage.Content.ReadAsStringAsync();
+			var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData); // Listeleme olacagi icin Deserialize kullaniyoruz.
+			List<SelectListItem> values2 = (from x in values
+											select new SelectListItem
+											{
+												Text = x.CategoryName,
+												Value = x.CategoryID.ToString()
+											}).ToList();    // <SelectListItem> bir deger cekecegimi bildirdim
+			ViewBag.v = values2;
 			return View();
 		}
 		[HttpPost]
