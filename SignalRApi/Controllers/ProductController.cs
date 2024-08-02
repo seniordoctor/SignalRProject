@@ -28,6 +28,13 @@ public class ProductController : ControllerBase
         return Ok(value);
     }
     
+    [HttpGet("GetProductsWithCategories")]
+    public IActionResult GetProductsWithCategories()
+    {
+        var value = _mapper.Map<List<ResultProductWithCategory>>(_productService.TGetProductsWithCategories());
+        return Ok(value);
+    }
+    
     [HttpPost]
     public IActionResult CreateProduct(CreateProductDto createProductDto)
     {

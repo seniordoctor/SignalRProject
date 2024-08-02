@@ -37,4 +37,9 @@ public class ProductManager : IProductService
     {
         return _productDal.GetListAll();
     }
+
+    public List<Product> TGetProductsWithCategories()
+    {
+        return _productDal.GetProductsWithCategories();
+    }
 }
